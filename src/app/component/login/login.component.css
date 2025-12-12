@@ -1,0 +1,118 @@
+.mainDiv {
+  height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(44, 44, 182, 0.333);
+}
+
+.card {
+  background-color: white;
+  padding: 20px;
+  width: 1000px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 30px;
+}
+
+.imageDiv img {
+  width: 520px;
+  height: auto;
+  border-radius: 10px;
+}
+
+.innerDiv {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+  width: 400px;
+}
+
+.innerDiv label {
+  font-weight: 600;
+}
+
+.innerDiv input {
+  padding: 10px;
+  border: 1px solid #aaa;
+  border-radius: 8px;
+  font-size: 14px;
+  width: 95%;
+}
+
+.loginBtn {
+  padding: 12px;
+  background-color: #3f51b5;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  width: 100%;
+  font-size: 16px;
+}
+
+.loginBtn:hover {
+  background-color: #303f9f;
+}
+
+.logoDiv img{
+   width: 120px;
+  height: auto;
+}
+
+.main-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background: #f5f6fa;
+}
+
+.login-card {
+  display: flex;
+  width: 850px;
+  min-height: 450px;
+  padding: 0;
+  border-radius: 12px;
+  overflow: hidden;
+}
+
+.image-section img {
+  width: 350px;
+  height: 100%;
+  object-fit: cover;
+}
+
+.form-section {
+  flex: 1;
+  padding: 30px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.logo-wrapper img {
+  width: 120px;
+  margin: 0 auto;
+  display: block;
+}
+
+.welcome-text {
+  text-align: center;
+  margin: 20px 0;
+  font-family: Arial, sans-serif;
+}
+
+.full-width {
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.login-button {
+  height: 45px;
+  font-size: 16px;
+}

@@ -1,0 +1,82 @@
+<div class="mainDiv">
+  <div class="card">
+    <div class="imageDiv">
+      <img src="assets/images/login_img.png" alt="Login" />
+    </div>
+    <div class="main-container">
+      <mat-card class="login-card">
+        <form
+          class="form-section"
+          [formGroup]="loginForm"
+          (ngSubmit)="loginClick()"
+        >
+          <div class="logo-wrapper">
+            <img src="assets/logo/epl2.png" alt="logo" />
+          </div>
+
+          <h2 class="welcome-text">You are always welcome</h2>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Username</mat-label>
+            <input
+              matInput
+              formControlName="username"
+              placeholder="Enter username"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              disabled
+              style="opacity: 0"
+            ></button>
+
+            <mat-error
+              *ngIf="
+                loginForm.get('username')?.touched &&
+                loginForm.get('username')?.invalid
+              "
+            >
+              Username is required
+            </mat-error>
+          </mat-form-field>
+
+          <mat-form-field appearance="outline" class="full-width">
+            <mat-label>Password</mat-label>
+            <input
+              matInput
+              [type]="hidePass ? 'password' : 'text'"
+              formControlName="password"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              (click)="hidePass = !hidePass"
+            >
+              <mat-icon>{{
+                hidePass ? 'visibility_off' : 'visibility'
+              }}</mat-icon>
+            </button>
+            <mat-error
+              *ngIf="
+                loginForm.get('password')?.touched &&
+                loginForm.get('password')?.invalid
+              "
+            >
+              Password must be at least 4 characters
+            </mat-error>
+          </mat-form-field>
+
+          <button
+            mat-raised-button
+            color="primary"
+            type="submit"
+            class="full-width login-button"
+          >
+            Login
+          </button>
+        </form>
+      </mat-card>
+    </div>
+  </div>
+</div>
