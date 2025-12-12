@@ -47,6 +47,7 @@ export class LoginComponent {
         (response: any) => {
           console.log('Suucess : ', response.access_token);
           this.authService.saveToken(response.access_token || '');
+          this.authService.saveUserId(response.user_details.id || '');
           alert('Login Success');
           this.router.navigateByUrl('/dashboard');
         },

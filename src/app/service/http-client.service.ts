@@ -8,6 +8,7 @@ import { UserService } from './userDB/user.service';
 export class HttpClientService {
   private apiUrl = 'https://betty-dev-api.xminds.in';
   private loginPostFix = '/v2/login';
+  private userDeatils = 'v2/user_details';
 
   constructor(private http: HttpClient) {}
   private isLogged = false;
@@ -22,26 +23,26 @@ export class HttpClientService {
     else this.isLogged = true;
 
     if (!this.isLogged) {
-      return ;
+      return;
     }
-    return user
+    return user;
   }
 
   isAuthenticated(): boolean {
-    return this.isLogged ;
+    return this.isLogged;
   }
 
   loginAuthenticated() {
-
     const data = {
       phone_number: '+917012429389',
       device_token: ['string'],
       device_id: '',
     };
 
-     return this.http.post(`${this.apiUrl}${this.loginPostFix}`, data);
+    return this.http.post(`${this.apiUrl}${this.loginPostFix}`, data);
   }
 
+  //save token in local storage
   saveToken(token: string) {
     localStorage.setItem('auth_token', token);
   }
@@ -49,4 +50,19 @@ export class HttpClientService {
   getToken(): string | null {
     return localStorage.getItem('auth_token');
   }
+
+  //seaveUserId
+  saveUserId(userId: string) {
+    localStorage.setItem('user_id', userId);
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('user_id');
+  } 
+
+  getUserDetails(userId: string) {
+    return this.http.get(`${this.apiUrl}/${this.userDeatils}?id=${userId}`);
+  }
+
+
 }
