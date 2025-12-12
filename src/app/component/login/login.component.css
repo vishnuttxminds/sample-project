@@ -68,13 +68,10 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background: #f5f6fa;
 }
 
 .login-card {
   display: flex;
-  width: 850px;
   min-height: 450px;
   padding: 0;
   border-radius: 12px;
@@ -115,4 +112,11 @@
 .login-button {
   height: 45px;
   font-size: 16px;
+  color: white !important;
+  background-color: rgb(204, 74, 231) !important;
+}
+
+mat-error {
+  font-size: 12px !important;
+  color: red !important;  
 }

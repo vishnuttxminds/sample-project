@@ -17,11 +17,13 @@
           <h2 class="welcome-text">You are always welcome</h2>
 
           <mat-form-field appearance="outline" class="full-width">
-            <mat-label>Username</mat-label>
+            <mat-label>Email</mat-label>
             <input
               matInput
-              formControlName="username"
-              placeholder="Enter username"
+              formControlName="email"
+              placeholder="Enter Email"
+              type="email"
+              required #email
             />
             <button
               mat-icon-button
@@ -30,13 +32,17 @@
               style="opacity: 0"
             ></button>
 
+            <mat-error *ngIf="loginForm.get('email')?.hasError('required')">
+              Email Address is required
+            </mat-error>
+
             <mat-error
               *ngIf="
-                loginForm.get('username')?.touched &&
-                loginForm.get('username')?.invalid
+                loginForm.get('email')?.hasError('email') &&
+                !loginForm.get('email')?.hasError('required')
               "
             >
-              Username is required
+              Please enter a valid email address
             </mat-error>
           </mat-form-field>
 
@@ -46,6 +52,7 @@
               matInput
               [type]="hidePass ? 'password' : 'text'"
               formControlName="password"
+              required #password
             />
             <button
               mat-icon-button

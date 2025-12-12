@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, inject, ViewChild } from '@angular/core';
 import {
   FormBuilder,
   FormControl,
@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { Router } from '@angular/router';
+import { HttpClientService } from 'src/app/service/http-client.service';
 
 @Component({
   selector: 'app-login',
@@ -15,11 +16,16 @@ import { Router } from '@angular/router';
 export class LoginComponent {
   loginForm!: FormGroup;
   hidePass = true;
- 
-  constructor(private fb: FormBuilder, private router:Router) {}
+
+  @ViewChild('email') email!: ElementRef;
+  @ViewChild('password') password!: ElementRef;
+
+  authService: HttpClientService = inject(HttpClientService);
+
+  constructor(private fb: FormBuilder, private router: Router) {}
   ngOnInit() {
     this.loginForm = this.fb.group({
-      username: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
       password: ['', [Validators.required, Validators.minLength(4)]],
     });
   }
@@ -30,8 +36,24 @@ export class LoginComponent {
       return;
     }
 
-console.log("Router: ", this.router.config);
-    console.log('Login success', this.loginForm.value);
-  this.router.navigateByUrl('/dashboard');
+    const email = this.email.nativeElement.value;
+    const password = this.password.nativeElement.value;
+    const success = this.authService.login(email, password);
+
+    if (!success) {
+      alert('Login failed');
+    } else {
+      this.authService.loginAuthenticated().subscribe(
+        (response: any) => {
+          console.log('Suucess : ', response.access_token);
+          this.authService.saveToken(response.access_token || '');
+          alert('Login Success');
+          this.router.navigateByUrl('/dashboard');
+        },
+        (error) => {
+          console.log('Error : ', error);
+        }
+      );
+    }
   }
 }
