@@ -17,9 +17,17 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { TokenInterceptor } from './interceptors/token.interceptor';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatTableModule } from '@angular/material/table';
+import { CommonTableComponent } from './shared/common-table/common-table.component';
+import { TableListComponent } from './component/table-list/table-list.component';
 
 @NgModule({
-  declarations: [AppComponent, LoginComponent, DashboardComponent],
+  declarations: [
+    AppComponent,
+    LoginComponent,
+    DashboardComponent,
+    CommonTableComponent,
+    TableListComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -33,7 +41,7 @@ import { MatTableModule } from '@angular/material/table';
     MatIconModule,
     HttpClientModule,
     MatTableModule,
-    MatPaginatorModule
+    MatPaginatorModule,
   ],
   providers: [{
     provide: HTTP_INTERCEPTORS,

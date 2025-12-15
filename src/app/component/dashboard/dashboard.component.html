@@ -27,42 +27,28 @@
     >
       Get Details
     </button>
+
+    <button
+      mat-raised-button
+      color="accent"
+      (click)="getFullList()"
+      class="details-btn"
+    >
+      See full list
+    </button>
   </mat-card>
 
   <br />
   <br />
   <div class="table-wrapper">
-    <table mat-table [dataSource]="listItems" class="mat-elevation-z8">
-      <ng-container matColumnDef="event">
-        <th mat-header-cell *matHeaderCellDef>Event</th>
-        <td mat-cell *matCellDef="let row">{{ row.event }}</td>
-      </ng-container>
-
-      <ng-container matColumnDef="created_date">
-        <th mat-header-cell *matHeaderCellDef>Created Date</th>
-        <td mat-cell *matCellDef="let row">
-          {{ row.created_date | date: 'medium' }}
-        </td>
-      </ng-container>
-
-      <ng-container matColumnDef="live">
-        <th mat-header-cell *matHeaderCellDef>Status</th>
-        <td mat-cell *matCellDef="let row">
-          {{ row.live ? 'Live' : 'Not Live' }}
-        </td>
-      </ng-container>
-
-      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
-      <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
-    </table>
-    <mat-paginator
-      [length]="totalItems"
+    <app-common-table
+      [displayedColumns]="displayedColumns"
+      [data]="listItems"
+      [totalItems]="totalItems"
       [pageSize]="pageSize"
-      [pageSizeOptions]="[5, 10, 20]"
-      showFirstLastButtons
-      (page)="onPageChange($event)"
+      (pageChange)="onPageChange($event)"
     >
-    </mat-paginator>
+    </app-common-table>
   </div>
 
   <p class="footer-text">All rights reserved 2026 © thoma</p>

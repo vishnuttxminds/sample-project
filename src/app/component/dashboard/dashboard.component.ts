@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClientService } from 'src/app/service/http-client.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-dashboard',
@@ -10,7 +11,7 @@ import { MatPaginator, PageEvent } from '@angular/material/paginator';
 })
 export class DashboardComponent implements OnInit {
   displayedColumns: string[] = ['event', 'created_date', 'live'];
-  listItems= new MatTableDataSource<any>([]);
+  listItems: any[] = [];
 
   totalItems = 0;
   pageSize = 10;
@@ -19,18 +20,20 @@ export class DashboardComponent implements OnInit {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
 
   id = this.apiService.getUserId();
-  constructor(private apiService: HttpClientService) {}
+  constructor(private apiService: HttpClientService, private router: Router) {}
+
 
   ngOnInit() {
     this.loadEvents();
   }
 
   loadEvents() {
-    const apiPage = this.pageIndex + 1;
-    this.apiService.getEventsList(apiPage, this.pageSize).subscribe((res) => {
-      this.listItems.data = res.response.result;
-      this.totalItems = res.response.total_items;
-    });
+    this.apiService
+      .getEventsList(this.pageIndex + 1, this.pageSize)
+      .subscribe((res) => {
+        this.listItems = res.response.result;
+        this.totalItems = res.response.total_items;
+      });
   }
 
   onPageChange(event: PageEvent) {
@@ -51,5 +54,9 @@ export class DashboardComponent implements OnInit {
         console.error('API error:', err);
       },
     });
+  }
+
+  getFullList() {
+   this.router.navigateByUrl('/table-list');
   }
 }

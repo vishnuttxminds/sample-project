@@ -1,15 +1,16 @@
 import { HttpClient } from '@angular/common/http';
 import { inject, Injectable } from '@angular/core';
 import { UserService } from './userDB/user.service';
+import { environment } from '../environments/environment';
 
 @Injectable({
   providedIn: 'root',
 })
 export class HttpClientService {
-  private apiUrl = 'https://betty-dev-api.xminds.in';
+  private apiBaseUrl = environment.baseUrl;
   private loginPostFix = '/v2/login';
   private userDeatils = 'v2/user_details';
-  private eventsList = '/v2/upcoming_events';
+  private eventsList = 'v2/upcoming_events';
 
   constructor(private http: HttpClient) {}
   private isLogged = false;
@@ -40,7 +41,7 @@ export class HttpClientService {
       device_id: '',
     };
 
-    return this.http.post(`${this.apiUrl}${this.loginPostFix}`, data);
+    return this.http.post(`${this.apiBaseUrl}${this.loginPostFix}`, data);
   }
 
   //save token in local storage
@@ -62,12 +63,12 @@ export class HttpClientService {
   }
 
   getUserDetails(userId: string) {
-    return this.http.get(`${this.apiUrl}/${this.userDeatils}?id=${userId}`);
+    return this.http.get(`${this.apiBaseUrl}/${this.userDeatils}?id=${userId}`);
   }
 
   getEventsList(page: number, size: number) {
     return this.http.get<any>(
-      `${this.apiUrl}/${this.eventsList}?page=${page}&size=${size}`
+      `${this.apiBaseUrl}/${this.eventsList}?page=${page}&size=${size}`
     );
   }
 }

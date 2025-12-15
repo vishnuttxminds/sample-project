@@ -1,0 +1,14 @@
+<div>
+  <div class="table-wrapper">
+    <app-common-table
+      [displayedColumns]="displayedColumns"
+      [data]="listItems"
+      [totalItems]="totalItems"
+      [pageSize]="pageSize"
+        showFirstLastButtons
+      (pageChange)="onPageChange($event)"
+      [pageSizeOptions]="[10, 20, 50, 100]"
+    >
+    </app-common-table>
+  </div>
+</div>
