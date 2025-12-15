@@ -70,3 +70,8 @@
    width: 200px !important;
   display: inline-block;
 }
+
+.table-wrapper {
+  border-radius: 12px;
+  overflow: hidden;
+}

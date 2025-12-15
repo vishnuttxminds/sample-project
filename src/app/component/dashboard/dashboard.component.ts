@@ -1,14 +1,43 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { HttpClientService } from 'src/app/service/http-client.service';
+import { MatTableDataSource } from '@angular/material/table';
+import { MatPaginator, PageEvent } from '@angular/material/paginator';
 
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
   styleUrls: ['./dashboard.component.css'],
 })
-export class DashboardComponent {
-  constructor(private apiService: HttpClientService) {}
+export class DashboardComponent implements OnInit {
+  displayedColumns: string[] = ['event', 'created_date', 'live'];
+  listItems= new MatTableDataSource<any>([]);
+
+  totalItems = 0;
+  pageSize = 10;
+  pageIndex = 0;
+
+  @ViewChild(MatPaginator) paginator!: MatPaginator;
+
   id = this.apiService.getUserId();
+  constructor(private apiService: HttpClientService) {}
+
+  ngOnInit() {
+    this.loadEvents();
+  }
+
+  loadEvents() {
+    const apiPage = this.pageIndex + 1;
+    this.apiService.getEventsList(apiPage, this.pageSize).subscribe((res) => {
+      this.listItems.data = res.response.result;
+      this.totalItems = res.response.total_items;
+    });
+  }
+
+  onPageChange(event: PageEvent) {
+    this.pageIndex = event.pageIndex;
+    this.pageSize = event.pageSize;
+    this.loadEvents();
+  }
 
   getDetails() {
     this.apiService.getUserDetails(this.id!).subscribe({
